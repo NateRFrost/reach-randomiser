@@ -35,11 +35,6 @@ You can use a pre-generated version of this mod using the steam workshop!
 - **.NET Framework 4.8**: Ensure you have .NET Framework 4.8 installed on your system.
 - **Halo Reach Editing Kit**: This tool requires the Halo Reach Editing Kit (HREK) to be installed and properly set up.
 
-## Roadmap (TODO)
-
-- [ ] **Optimization**: Refine and streamline the main function for better performance and readability.
-- [ ] **Comprehensive Documentation**: Create detailed documentation for ease of understanding and contribution.
-
 ## Contributing
 
 Any contributions you make are **greatly appreciated**.
