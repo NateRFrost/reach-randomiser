@@ -14,7 +14,7 @@ namespace ReachTesting
     {
         static void Main(string[] args)
         {
-            Random rand = new Random();
+            Random rand = new Random(Guid.NewGuid().GetHashCode());
             var hrekPath = @"C:\Program Files (x86)\Steam\steamapps\common\HREK";
             
             //Replace some tags to clean up some stuff like weapon animations for characters
@@ -198,7 +198,7 @@ namespace ReachTesting
                             //Loop through the cells elements
                             foreach (var cell in ((Bungie.Tags.TagFieldBlock)cells).Elements)
                             {
-                                //0.1 chance to have a vehicle
+                                //chance to have a vehicle
                                 bool shouldHaveVehicle = rand.Next(0, 30) == 0;
                                 bool shouldSpawnHunter = rand.Next(0, 30) == 0;
                                 bool shouldSpawnEngineer = rand.Next(0, 30) == 0;
@@ -248,7 +248,7 @@ namespace ReachTesting
                                         var vehicleType = cell.Fields.Where(x => x.DisplayName == "vehicle type").FirstOrDefault();
                                         if (vehicleType != null)
                                         {
-                                            ((TagFieldBlockIndex)vehicleType).Value = (short)runtimeVehicleObjectPaths[rand.Next(0, runtimeVehicleObjectPaths.Count)].PaletteIndex;
+                                            ((TagFieldBlockIndex)vehicleType).Value = (short)GetWeightedVehicle(vehicleObjectPaths, rand).PaletteIndex;
                                         }
 
                                     }
@@ -327,7 +327,7 @@ namespace ReachTesting
                                     else
                                     {
                                         RemoveAllWeaponsOfCell(cell);
-                                        var randomWeapon = runtimeWeapons[rand.Next(0, runtimeWeapons.Count)];
+                                        var randomWeapon = GetWeightedWeapon(runtimeWeapons, rand); //runtimeWeapons[rand.Next(0, runtimeWeapons.Count)];
                                         randomWeapon.CompatibleEnemies.RemoveAll(o => o.Name.Contains("hunter"));
                                         randomWeapon.CompatibleEnemies.RemoveAll(o => o.Name.Contains("engineer"));
                                         randomWeapon.CompatibleEnemies.RemoveAll(o => o.Name.Contains("mule"));
@@ -358,7 +358,7 @@ namespace ReachTesting
                                         SetNormalDiffCountOfCell(cell, enemyCountForCell);
 
 
-                                        randomWeapon.CompatibleEnemies = randomWeapon.CompatibleEnemies.OrderBy(x => rand.Next()).ToList();
+                                        randomWeapon.CompatibleEnemies = randomWeapon.CompatibleEnemies.OrderBy(x => rand.Next(2000000) * Math.Sqrt(x.Weight)).ToList();
 
                                         //Randomise order of compatible enemies
                                         RemoveAllCharactersOfCell(cell);
@@ -385,7 +385,7 @@ namespace ReachTesting
                                             //Get the count of the elements
                                             var count = enemyElements.Elements.Count;
                                             //Max enemies in a cell is 8
-                                            if (count >= 8 || (levelnameStatic == "m30" && count >=4))
+                                            if (count >= 2 || (levelnameStatic == "m30" && count >=2))
                                             {
                                                 break;
                                             }
@@ -423,7 +423,7 @@ namespace ReachTesting
                                         compatibleWeapons.Remove(randomWeapon);
 
                                         //Randomise the order of the compatible weapons
-                                        compatibleWeapons = compatibleWeapons.OrderBy(x => rand.Next()).ToList();
+                                        compatibleWeapons = compatibleWeapons.OrderBy(x => rand.Next(2000000) * Math.Sqrt(x.Weight)).ToList();
 
                                         int i = 0;
                                         foreach(var weapon in compatibleWeapons)

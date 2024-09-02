@@ -127,6 +127,7 @@ namespace ReachTesting
             public int AmmoTotal {get; set;} = 0;
 
             public int PaletteIndex { get; set; } = -1;
+            public int Weight { get; set; } = 10;
 
             public List<EnemyObjectPaths> CompatibleEnemies { get; set; } = new List<EnemyObjectPaths>();
         }
@@ -137,6 +138,7 @@ namespace ReachTesting
             public string Path { get; set; }
 
             public int PaletteIndex { get; set; } = -1;
+            public int Weight { get; set;} = 10;
         }
 
         public class EnemyObjectPaths
@@ -144,6 +146,7 @@ namespace ReachTesting
             public string Name { get; set; }
             public string Path { get; set; }
             public int PaletteIndex { get; set; } = -1;
+            public int Weight { get; set;} = 10;
         }
 
         public class VehicleObjectPaths
@@ -151,6 +154,7 @@ namespace ReachTesting
             public string Name { get; set; }
             public string Path { get; set; }
             public int PaletteIndex { get; set; } = -1;
+            public int Weight { get; set;} = 10;
         }
         public class VariantList
         {
@@ -168,10 +172,10 @@ namespace ReachTesting
         public static List<EnemyObjectPaths> enemyObjectPaths = new List<EnemyObjectPaths>()
         {
             new EnemyObjectPaths{Name = "mule", Path =  @"objects\characters\mule\ai\mule"},
-            new EnemyObjectPaths{Name = "brute", Path =  @"objects\characters\brute\ai\brute"},
-            new EnemyObjectPaths{Name = "brute_captain", Path =   @"objects\characters\brute\ai\brute_captain"},
-            new EnemyObjectPaths{Name = "brute_chieftain_armor",  Path =  @"objects\characters\brute\ai\brute_chieftain_armor"},
-            new EnemyObjectPaths{Name = "brute_chieftain_weapon", Path =   @"objects\characters\brute\ai\brute_chieftain_weapon"},
+            new EnemyObjectPaths{Name = "brute", Path =  @"objects\characters\brute\ai\brute", Weight = 5},
+            new EnemyObjectPaths{Name = "brute_captain", Path =   @"objects\characters\brute\ai\brute_captain", Weight = 5},
+            new EnemyObjectPaths{Name = "brute_chieftain_armor",  Path =  @"objects\characters\brute\ai\brute_chieftain_armor", Weight = 1},
+            new EnemyObjectPaths{Name = "brute_chieftain_weapon", Path =   @"objects\characters\brute\ai\brute_chieftain_weapon", Weight = 1},
             new EnemyObjectPaths{Name = "grunt", Path = @"objects\characters\grunt\ai\grunt"},
             new EnemyObjectPaths{Name = "grunt_heavy", Path =   @"objects\characters\grunt\ai\grunt_heavy"},
             new EnemyObjectPaths{Name = "grunt_major", Path =   @"objects\characters\grunt\ai\grunt_major"},
@@ -184,14 +188,14 @@ namespace ReachTesting
             new EnemyObjectPaths{Name = "skirmisher_commando", Path =   @"objects\characters\jackal\ai\skirmisher_commando"},
             new EnemyObjectPaths{Name = "skirmisher_major", Path =   @"objects\characters\jackal\ai\skirmisher_major"},
             new EnemyObjectPaths{Name = "skirmisher_murmillone", Path =   @"objects\characters\jackal\ai\skirmisher_murmillone"},
-            new EnemyObjectPaths{Name = "elite", Path =   @"objects\characters\elite\ai\elite"},
-            new EnemyObjectPaths{Name = "elite_general", Path =   @"objects\characters\elite\ai\elite_general"},
-            new EnemyObjectPaths{Name = "elite_jetpack",  Path =  @"objects\characters\elite\ai\elite_jetpack"},
-            new EnemyObjectPaths{Name = "elite_officer", Path =   @"objects\characters\elite\ai\elite_officer"},
-            new EnemyObjectPaths{Name = "elite_specops", Path =   @"objects\characters\elite\ai\elite_specops"},
-            new EnemyObjectPaths{Name = "elite_story", Path =   @"objects\characters\elite\ai\elite_story"},
-            new EnemyObjectPaths{Name = "elite_story_unique", Path =   @"objects\characters\elite\ai\elite_story_unique"},
-            new EnemyObjectPaths{Name = "elite_ultra", Path =   @"objects\characters\elite\ai\elite_ultra"},
+            new EnemyObjectPaths{Name = "elite", Path =   @"objects\characters\elite\ai\elite", Weight = 5},
+            new EnemyObjectPaths{Name = "elite_general", Path =   @"objects\characters\elite\ai\elite_general", Weight = 2},
+            new EnemyObjectPaths{Name = "elite_jetpack",  Path =  @"objects\characters\elite\ai\elite_jetpack", Weight = 5},
+            new EnemyObjectPaths{Name = "elite_officer", Path =   @"objects\characters\elite\ai\elite_officer", Weight = 5},
+            new EnemyObjectPaths{Name = "elite_specops", Path =   @"objects\characters\elite\ai\elite_specops", Weight = 5},
+            new EnemyObjectPaths{Name = "elite_story", Path =   @"objects\characters\elite\ai\elite_story", Weight = 5},
+            new EnemyObjectPaths{Name = "elite_story_unique", Path =   @"objects\characters\elite\ai\elite_story_unique", Weight = 2},
+            new EnemyObjectPaths{Name = "elite_ultra", Path =   @"objects\characters\elite\ai\elite_ultra", Weight = 5},
             new EnemyObjectPaths{Name = "hunter", Path =   @"objects\characters\hunter\ai\hunter"},
             new EnemyObjectPaths{Name = "engineer",  Path =  @"objects\characters\engineer\ai\engineer"},
             new EnemyObjectPaths{Name = "bugger",  Path =  @"objects\characters\bugger\ai\bugger"},
@@ -232,7 +236,7 @@ namespace ReachTesting
 
         public static List<WeaponDetails> weapons = new List<WeaponDetails>()
         {
-            new WeaponDetails{Name = "energy_sword", Path = @"objects\weapons\melee\energy_sword\energy_sword", CompatibleEnemies = enemyObjectPaths.Where(o => o.Name.Contains("elite")).ToList() },
+            new WeaponDetails{Name = "energy_sword", Path = @"objects\weapons\melee\energy_sword\energy_sword", CompatibleEnemies = enemyObjectPaths.Where(o => o.Name.Contains("elite")).ToList()},
             new WeaponDetails{Name = "gravity_hammer", Path = @"objects\weapons\melee\gravity_hammer\gravity_hammer", CompatibleEnemies = enemyObjectPaths.Where(o => o.Name.Contains("brute")).ToList() },
             //new WeaponDetails{Name = "jackal_shield", Path = @"objects\weapons\melee\jackal_shield\jackal_shield" },
             //new WeaponDetails{Name = "skirmisher_bracers", Path = @"objects\weapons\melee\skirmisher_bracers\skirmisher_bracers" },
@@ -242,21 +246,21 @@ namespace ReachTesting
             new WeaponDetails{Name = "plasma_pistol", Path = @"objects\weapons\pistol\plasma_pistol\plasma_pistol", CompatibleEnemies = enemyObjectPaths.ToList() },
             new WeaponDetails{Name = "assault_rifle", Path = @"objects\weapons\rifle\assault_rifle\assault_rifle", AmmoMag = 32, AmmoTotal = 160, CompatibleEnemies = enemyObjectPaths.ToList() },
             new WeaponDetails{Name = "concussion_rifle", Path = @"objects\weapons\rifle\concussion_rifle\concussion_rifle", AmmoMag = 6, AmmoTotal = 18, CompatibleEnemies = enemyObjectPaths.ToList() },
-            new WeaponDetails{Name = "dmr", Path = @"objects\weapons\rifle\dmr\dmr", AmmoMag = 15, AmmoTotal = 45, CompatibleEnemies = enemyObjectPaths.ToList() },
+            new WeaponDetails{Name = "dmr", Path = @"objects\weapons\rifle\dmr\dmr", AmmoMag = 15, AmmoTotal = 45, CompatibleEnemies = enemyObjectPaths.ToList() , Weight = 7},
             new WeaponDetails{Name = "focus_rifle", Path = @"objects\weapons\rifle\focus_rifle\focus_rifle", CompatibleEnemies = enemyObjectPaths.ToList() },
             new WeaponDetails{Name = "grenade_launcher", Path = @"objects\weapons\rifle\grenade_launcher\grenade_launcher", AmmoMag = 1, AmmoTotal = 16, CompatibleEnemies = enemyObjectPaths},
-            new WeaponDetails{Name = "needle_rifle", Path = @"objects\weapons\rifle\needle_rifle\needle_rifle", AmmoMag = 21, AmmoTotal = 63, CompatibleEnemies = enemyObjectPaths.ToList() },
-            new WeaponDetails{Name = "plasma_repeater", Path = @"objects\weapons\rifle\plasma_repeater\plasma_repeater", CompatibleEnemies = enemyObjectPaths.ToList() },
+            new WeaponDetails{Name = "needle_rifle", Path = @"objects\weapons\rifle\needle_rifle\needle_rifle", AmmoMag = 21, AmmoTotal = 63, CompatibleEnemies = enemyObjectPaths.ToList(), Weight = 7},
+            new WeaponDetails{Name = "plasma_repeater", Path = @"objects\weapons\rifle\plasma_repeater\plasma_repeater", CompatibleEnemies = enemyObjectPaths.ToList(), Weight = 7},
             new WeaponDetails{Name = "plasma_rifle", Path = @"objects\weapons\rifle\plasma_rifle\plasma_rifle", CompatibleEnemies = enemyObjectPaths.ToList() },//Jackals, grunts, elites, skirms
             new WeaponDetails{Name = "shotgun", Path = @"objects\weapons\rifle\shotgun\shotgun", AmmoMag = 6, AmmoTotal = 18, CompatibleEnemies = enemyObjectPaths.ToList() },
-            new WeaponDetails{Name = "sniper_rifle", Path = @"objects\weapons\rifle\sniper_rifle\sniper_rifle", AmmoMag = 4, AmmoTotal = 12, CompatibleEnemies = enemyObjectPaths.ToList() },
+            new WeaponDetails{Name = "sniper_rifle", Path = @"objects\weapons\rifle\sniper_rifle\sniper_rifle", AmmoMag = 4, AmmoTotal = 12, CompatibleEnemies = enemyObjectPaths.ToList(), Weight = 4},
             new WeaponDetails{Name = "spike_rifle", Path = @"objects\weapons\rifle\spike_rifle\spike_rifle", AmmoMag = 20, AmmoTotal = 120, CompatibleEnemies = enemyObjectPaths.ToList() },
-            new WeaponDetails{Name = "flak_cannon", Path = @"objects\weapons\support_high\flak_cannon\flak_cannon", AmmoMag = 5, AmmoTotal = 20, CompatibleEnemies = enemyObjectPaths.ToList() }, //elites, brutes and grunts
-            new WeaponDetails{Name = "plasma_launcher", Path = @"objects\weapons\support_high\plasma_launcher\plasma_launcher", CompatibleEnemies = enemyObjectPaths.ToList() },
-            new WeaponDetails{Name = "rocket_launcher", Path = @"objects\weapons\support_high\rocket_launcher\rocket_launcher", AmmoMag = 2, AmmoTotal = 8, CompatibleEnemies = enemyObjectPaths.ToList() },
-            new WeaponDetails{Name = "spartan_laser", Path = @"objects\weapons\support_high\spartan_laser\spartan_laser", CompatibleEnemies = enemyObjectPaths },
-            new WeaponDetails{Name = "machinegun_turret_jorge", Path = @"objects\weapons\turret\machinegun_turret_jorge\machinegun_turret_jorge", AmmoMag = 200, AmmoTotal = 200, CompatibleEnemies = enemyObjectPaths.ToList() },
-            new WeaponDetails{Name = "plasma_turret", Path = @"objects\vehicles\covenant\turrets\plasma_turret\weapon\plasma_turret\plasma_turret", AmmoMag = 200, AmmoTotal = 200, CompatibleEnemies = enemyObjectPaths.ToList() },
+            new WeaponDetails{Name = "flak_cannon", Path = @"objects\weapons\support_high\flak_cannon\flak_cannon", AmmoMag = 5, AmmoTotal = 20, CompatibleEnemies = enemyObjectPaths.ToList(), Weight = 4}, //elites, brutes and grunts
+            new WeaponDetails{Name = "plasma_launcher", Path = @"objects\weapons\support_high\plasma_launcher\plasma_launcher", CompatibleEnemies = enemyObjectPaths.ToList(), Weight = 4},
+            new WeaponDetails{Name = "rocket_launcher", Path = @"objects\weapons\support_high\rocket_launcher\rocket_launcher", AmmoMag = 2, AmmoTotal = 8, CompatibleEnemies = enemyObjectPaths.ToList(), Weight = 4},
+            new WeaponDetails{Name = "spartan_laser", Path = @"objects\weapons\support_high\spartan_laser\spartan_laser", CompatibleEnemies = enemyObjectPaths, Weight = 4},
+            new WeaponDetails{Name = "machinegun_turret_jorge", Path = @"objects\weapons\turret\machinegun_turret_jorge\machinegun_turret_jorge", AmmoMag = 200, AmmoTotal = 200, CompatibleEnemies = enemyObjectPaths.ToList(), Weight = 2},
+            new WeaponDetails{Name = "plasma_turret", Path = @"objects\vehicles\covenant\turrets\plasma_turret\weapon\plasma_turret\plasma_turret", AmmoMag = 200, AmmoTotal = 200, CompatibleEnemies = enemyObjectPaths.ToList(), Weight = 2},
             //new WeaponDetails{Name = "machinegun_turret", Path = @"objects\vehicles\human\turrets\machinegun\weapon\machinegun_turret\machinegun_turret", AmmoMag = 200, AmmoTotal = 200, CompatibleEnemies = enemyObjectPaths.ToList() },
         };
 
@@ -267,19 +271,19 @@ namespace ReachTesting
             new EquipmentDetails{Name = "drop_shield", Path = @"objects\equipment\drop_shield\drop_shield"},
             new EquipmentDetails{Name = "evade", Path = @"objects\equipment\evade\evade"},
             new EquipmentDetails{Name = "hologram", Path = @"objects\equipment\hologram\hologram"},
-            new EquipmentDetails{Name = "jet_pack", Path = @"objects\equipment\jet_pack\jet_pack"},
+            new EquipmentDetails{Name = "jet_pack", Path = @"objects\equipment\jet_pack\jet_pack", Weight = 4},
             new EquipmentDetails{Name = "sprint", Path = @"objects\equipment\sprint\sprint"},
         };
 
         public static List<VehicleObjectPaths> vehicleObjectPaths = new List<VehicleObjectPaths>()
         {
-            new VehicleObjectPaths{Name = "banshee", Path =  @"objects\vehicles\covenant\banshee\banshee" },
+            new VehicleObjectPaths{Name = "banshee", Path =  @"objects\vehicles\covenant\banshee\banshee", Weight = 4},
             new VehicleObjectPaths{Name = "ghost",  Path = @"objects\vehicles\covenant\ghost\ghost" },
             new VehicleObjectPaths{Name = "revenant", Path =  @"objects\vehicles\covenant\revenant\revenant" },
-            new VehicleObjectPaths{Name = "wraith",  Path = @"objects\vehicles\covenant\wraith\wraith" },
-            new VehicleObjectPaths{Name = "falcon",  Path = @"objects\vehicles\human\falcon\falcon" },
+            new VehicleObjectPaths{Name = "wraith",  Path = @"objects\vehicles\covenant\wraith\wraith", Weight = 4},
+            new VehicleObjectPaths{Name = "falcon",  Path = @"objects\vehicles\human\falcon\falcon", Weight = 4},
             new VehicleObjectPaths{Name = "mongoose",  Path = @"objects\vehicles\human\mongoose\mongoose" },
-            new VehicleObjectPaths{Name = "scorpion",  Path = @"objects\vehicles\human\scorpion\scorpion" },
+            new VehicleObjectPaths{Name = "scorpion",  Path = @"objects\vehicles\human\scorpion\scorpion", Weight = 4},
             new VehicleObjectPaths{Name = "warthog",  Path = @"objects\vehicles\human\warthog\warthog" },
         };
 

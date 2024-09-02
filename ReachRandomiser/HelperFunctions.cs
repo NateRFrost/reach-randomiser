@@ -637,7 +637,7 @@ namespace ReachTesting
             if (weapon != null)
             {
                 //Check max elements
-                if (((TagFieldBlock)weapon).Elements.Count >= 5)
+                if (((TagFieldBlock)weapon).Elements.Count >= 2)
                 {
                     return;
                 }
@@ -794,7 +794,7 @@ namespace ReachTesting
                 {
                     if (runtimeWeapons.Any(x => x.PaletteIndex == GetWeaponIndex(weapon)))
                     {
-                        var randomWeapon = runtimeWeapons[rand.Next(0, runtimeWeapons.Count)];
+                        var randomWeapon = GetWeightedWeapon(runtimeWeapons, rand);//runtimeWeapons[rand.Next(0, runtimeWeapons.Count)];
                         SetWeapon(weapon, rand, randomWeapon.PaletteIndex);
                     }
                 }
@@ -883,8 +883,8 @@ namespace ReachTesting
             {
                 foreach (var profile  in ((Bungie.Tags.TagFieldBlock)profiles).Elements)
                 {
-                    var primaryType = runtimeWeapons[rand.Next(0, runtimeWeapons.Count)];
-                    var secondaryType = runtimeWeapons[rand.Next(0, runtimeWeapons.Count)];
+                    var primaryType = GetWeightedWeapon(runtimeWeapons, rand);
+                    var secondaryType = GetWeightedWeapon(runtimeWeapons, rand);
                     var equipmentType = runtimeEquipment[rand.Next(0, runtimeEquipment.Count)];
                     foreach (var field in profile.Fields)
                     {
@@ -1051,5 +1051,31 @@ namespace ReachTesting
                 }
             }
         }
+
+        public static EnemyObjectPaths GetWeightedCharacter(List<EnemyObjectPaths> enemyObjects, Random rand)
+        {
+            var max = enemyObjects.Sum(y => y.Weight);
+            var randInt = rand.Next(max);
+            var res = enemyObjects.FirstOrDefault(x => randInt >= (max -= x.Weight));
+            return res;
+        }
+
+        public static VehicleObjectPaths GetWeightedVehicle(List<VehicleObjectPaths> vehicleObjects, Random rand)
+        {
+            var max = vehicleObjects.Sum(y => y.Weight);
+            var randInt = rand.Next(max);
+            var res = vehicleObjects.FirstOrDefault(x => randInt >= (max -= x.Weight));
+            return res;
+        }
+
+        public static WeaponDetails GetWeightedWeapon(List<WeaponDetails> weaponObjects, Random rand)
+        {
+            var max = weaponObjects.Sum(y => y.Weight);
+            var randInt = rand.Next(max);
+            var res = weaponObjects.FirstOrDefault(x => randInt >= (max -= x.Weight));
+            return res;
+        }
+
+
     }
 }
